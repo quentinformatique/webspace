@@ -15,12 +15,14 @@ renderer.render(scene, camera)
 
 const geometry = new THREE.ConeGeometry(10, 30, 16, 100);
 const material = new THREE.MeshStandardMaterial({ color: "#FFFFFF"});
-
 const cone = new THREE.Mesh(geometry, material)
 
 scene.add(cone);
 
-const pointLight = new THREE.PointLight(0xffffff)
+const pointLight = new THREE.PointLight(0xffffff);
+pointLight.position.set(5, 5, 5);
+
+scene.add(pointLight);
 
 function animate() {
     requestAnimationFrame( animate ) ;
