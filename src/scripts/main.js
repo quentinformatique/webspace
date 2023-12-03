@@ -16,14 +16,16 @@ camera.position.setZ(20);
 renderer.render(scene, camera)
 
 // Lights
-const pointLight = new THREE.PointLight(0xffffff, 500, 100);
+const pointLight = new THREE.PointLight(0xffffff, 250, 100);
 pointLight.position.set(5, 5, 5);
 scene.add(pointLight);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+scene.add(pointLight, ambientLight);
 
 // helpers
 const lightHelper = new THREE.PointLightHelper(pointLight);
 const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(lightHelper, gridHelper);
+// scene.add(lightHelper, gridHelper);
 
 // orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -31,7 +33,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 // add stars
 function addStarts() {
     const geometry = new THREE.SphereGeometry(0.25, 24, 24)
-    const material = new THREE.MeshStandardMaterial( { color: 0xffffff} );
+    const material = new THREE.MeshStandardMaterial( { color: 0xfffec8, } );
     const star = new THREE.Mesh(geometry, material);
 
     // generate random positions for the stars
@@ -43,7 +45,7 @@ function addStarts() {
     scene.add(star);
 }
 // change the number top change the stars numbers
-Array(200).fill().forEach(addStarts);
+Array(400).fill().forEach(addStarts);
 
 // space background
 const spaceTexture = new THREE.TextureLoader().load('./space.jpg');
