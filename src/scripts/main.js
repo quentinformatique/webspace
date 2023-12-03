@@ -15,19 +15,10 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(20);
 renderer.render(scene, camera)
 
-// geometry
-const geometry = new THREE.BoxGeometry( 5, 5, 5 );
-const material = new THREE.MeshStandardMaterial({ color: "#FFFFFF"});
-const cone = new THREE.Mesh(geometry, material)
-
-scene.add(cone);
-
 // Lights
-const pointLight = new THREE.PointLight(0xffffff);
+const pointLight = new THREE.PointLight(0xffffff, 500, 100);
 pointLight.position.set(5, 5, 5);
-
-const ambientLight = new THREE.AmbientLight(0xffffff);
-scene.add(pointLight, ambientLight);
+scene.add(pointLight);
 
 // helpers
 const lightHelper = new THREE.PointLightHelper(pointLight);
@@ -54,11 +45,32 @@ function addStarts() {
 // change the number top change the stars numbers
 Array(200).fill().forEach(addStarts);
 
+// space background
+const spaceTexture = new THREE.TextureLoader().load('./space.jpg');
+scene.background = spaceTexture;
+
+// Earth
+
+const earthTexture = new THREE.TextureLoader().load('earth.jpg');
+const normalTexture = new THREE.TextureLoader().load('normal.jpg');
+
+const earth = new THREE.Mesh(
+    new THREE.SphereGeometry(3, 32, 32),
+    new THREE.MeshStandardMaterial({
+        map: earthTexture,
+        normalMap: normalTexture,
+    })
+);
+
+scene.add(earth);
+earth.position.z = 0;
+earth.position.setX(0);
+
+
+
 function animate() {
     requestAnimationFrame( animate ) ;
-    cone.rotation.x += 0.01
-    cone.rotation.y += 0.005
-    cone.rotation.z += 0.01
+    earth.rotation.y += 0.001
 
     controls.update();
     renderer.render(scene, camera );
