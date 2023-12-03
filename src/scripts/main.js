@@ -37,6 +37,23 @@ scene.add(lightHelper, gridHelper);
 // orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
 
+// add stars
+function addStarts() {
+    const geometry = new THREE.SphereGeometry(0.25, 24, 24)
+    const material = new THREE.MeshStandardMaterial( { color: 0xffffff} );
+    const star = new THREE.Mesh(geometry, material);
+
+    // generate random positions for the stars
+    const [x, y, z] = Array(3)
+        .fill()
+        .map(() => THREE.MathUtils.randFloatSpread(100));
+
+    star.position.set(x, y, z);
+    scene.add(star);
+}
+// change the number top change the stars numbers
+Array(200).fill().forEach(addStarts);
+
 function animate() {
     requestAnimationFrame( animate ) ;
     cone.rotation.x += 0.01
